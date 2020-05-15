@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout component matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiContainer-root MuiContainer-maxWidthLg"
+    data-testid="layout"
+  >
+    <div
+      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+    >
+      <div
+        class="makeStyles-container-115"
+        data-testid="brf-hero-header"
+      >
+        <header
+          class="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary makeStyles-appBar-113 mui-fixed MuiPaper-elevation4"
+        >
+          <div
+            class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-116 MuiToolbar-gutters"
+          >
+            <div
+              class="MuiContainer-root makeStyles-materialContainer-117 MuiContainer-maxWidthLg"
+            >
+              <h2
+                class="makeStyles-title-118"
+              >
+                Super Hero
+              </h2>
+            </div>
+          </div>
+        </header>
+      </div>
+    </div>
+    <div
+      class="MuiGrid-root makeStyles-main-1 MuiGrid-item MuiGrid-grid-xs-12"
+    />
+  </div>
+</DocumentFragment>
+`;
