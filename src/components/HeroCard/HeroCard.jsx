@@ -8,29 +8,28 @@ import {
   Typography
 } from '@material-ui/core'
 
-import { uniqueId } from '../../utils'
-import { PowerStats } from '..'
+import { PowerStatsList } from '..'
 
-export default function HeroCard ({ data: { id, name, image, powerstats } }) {
+export default function HeroCard ({
+  data: { id, name, image, powerstats, handleOpenModal }
+}) {
   const classes = useStyles()
+
   return (
-    <Card className={classes.root}>
+    <Card className={classes.container} onClick={() => handleOpenModal(id)}>
       <CardActionArea>
         <CardMedia className={classes.media} image={image} title={name} />
         <CardContent>
-          <Typography gutterBottom variant='h5' component='h2'>
+          <Typography gutterBottom variant='h5'>
             {name}
           </Typography>
-          {powerstats &&
-            Object.entries(powerstats).map((power) => (
-              <PowerStats
-                data={{
-                  name: power[0],
-                  strength: power[1]
-                }}
-                key={uniqueId()}
-              />
-            ))}
+          {powerstats && (
+            <PowerStatsList
+              data={{
+                list: powerstats
+              }}
+            />
+          )}
         </CardContent>
       </CardActionArea>
     </Card>
@@ -38,12 +37,13 @@ export default function HeroCard ({ data: { id, name, image, powerstats } }) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  container: {
+    boxShadow: theme.customShadow.default,
     minWidth: 300,
-    margin: [[8, 8, 24, 8]],
+    margin: [[10, 10, 24, 10]],
 
-    [theme.breakpoints.up('lg')]: {
-      minWidth: 292
+    [theme.breakpoints.up('md')]: {
+      minWidth: 288
     }
   },
   media: {

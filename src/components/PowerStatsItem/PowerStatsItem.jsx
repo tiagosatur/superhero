@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
-export default function PowerStats ({ data: { name, strength } }) {
+export default function PowerStatsItem ({ data: { name, strength } }) {
   const classes = useStyles({ strength })
 
   return (
