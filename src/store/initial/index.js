@@ -7,5 +7,10 @@ export default {
     results: [],
     error: '',
     total: 0
+  },
+  hero: {
+    isHeroLoading: false,
+    info: {},
+    error: ''
   }
 }

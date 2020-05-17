@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Grid, Typography } from '@material-ui/core'
-import { BarLoader } from 'react-spinners'
 
 import { useAction, useStore, uniqueId } from '../../utils'
-import { colors } from '../../styles'
 
-import { SearchField, HeroCard } from '../../components'
+import {
+  SearchField,
+  HeroCard,
+  HeroDetailsModal,
+  BarLoader
+} from '../../components'
 
 export default function Home () {
   const [term, setTerm] = useState('')
   const [shakeField, setShakeField] = useState(false)
+  const [isModalOpen, setModalOpen] = useState(false)
+
   const classes = useStyles()
   const { actions } = useAction()
   const {
@@ -23,8 +28,9 @@ export default function Home () {
     setTerm(e.target.value)
   }
 
-  async function handleSubmit () {
-    if (term.length > 0) {
+  async function handleSubmitSearch (e) {
+    e.preventDefault()
+    if (term.length >= 2) {
       actions.searchHeroes(term)
       setTerm('')
     } else {
@@ -35,20 +41,26 @@ export default function Home () {
     }
   }
 
+  function handleCloseModal () {
+    setModalOpen(false)
+  }
+
+  function handleOpenModal (heroId) {
+    setModalOpen(true)
+    actions.getHero(heroId)
+  }
+
   return (
     <Grid container data-testid='homepage'>
       <Grid item xs={12} className={classes.searchContainer}>
         <SearchField
           data={{ value: term, shakeField }}
-          actions={{ handleChange, handleSubmit }}
+          actions={{ handleChange, handleSubmitSearch }}
         />
       </Grid>
       <Grid item xs={12}>
         {isSearchLoading ? (
-          <div className={classes.loaderCotainer}>
-            {' '}
-            <BarLoader width={500} color={colors.primary.main} />
-          </div>
+          <BarLoader data={{ width: 500, className: classes.barLoader }} />
         ) : (
           results &&
           results.length > 0 && (
@@ -70,12 +82,19 @@ export default function Home () {
                         id: item.id,
                         name: item.name,
                         image: item.image.url,
-                        powerstats: item.powerstats
+                        powerstats: item.powerstats,
+                        handleOpenModal
                       }}
                       key={uniqueId()}
                     />
                   ))}
               </div>
+              <HeroDetailsModal
+                data={{
+                  handleCloseModal,
+                  isModalOpen
+                }}
+              />
             </div>
           )
         )}
@@ -86,6 +105,7 @@ export default function Home () {
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
+    fontFamily: 'Roboto',
     '::selection': {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.primary[100]
@@ -108,11 +128,7 @@ const useStyles = makeStyles((theme) => ({
   resultsFor: {
     marginRight: 4
   },
-  loaderCotainer: {
-    display: 'flex',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  barLoader: {
     marginTop: 100
   }
 }))
