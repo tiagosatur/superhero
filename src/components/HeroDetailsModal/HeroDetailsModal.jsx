@@ -1,5 +1,5 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
   Table,
@@ -7,15 +7,16 @@ import {
   TableCell,
   TableRow,
   Button,
-  Icon
-} from '@material-ui/core'
-import { AiOutlineClose as CloseIcon } from 'react-icons/ai'
+  Icon,
+} from "@material-ui/core";
+import { AiOutlineClose as CloseIcon } from "react-icons/ai";
 
-import { useStore } from '../../utils'
-import { PowerStatsList, Modal, BarLoader } from '..'
+import { useStore } from "../../utils";
+import { PowerStatsList, Modal, BarLoader } from "..";
 
-export default function HeroDetailsModal ({
-  data: { isModalOpen, handleCloseModal }
+export default function HeroDetailsModal({
+  data: { isModalOpen },
+  actions: { handleCloseModal },
 }) {
   const {
     state: {
@@ -28,18 +29,20 @@ export default function HeroDetailsModal ({
           image,
           appearance,
           work,
-          connections
-        }
-      }
-    }
-  } = useStore()
-  const classes = useStyles({ url: image && image.url })
+          connections,
+        },
+      },
+    },
+  } = useStore();
+  const classes = useStyles({ url: image && image.url });
 
   return (
     <Modal
       data={{
         isModalOpen,
-        handleCloseModal
+      }}
+      actions={{
+        handleCloseModal,
       }}
     >
       <div className={classes.container}>
@@ -50,9 +53,11 @@ export default function HeroDetailsModal ({
             <div className={classes.media} />
             <div className={classes.content}>
               <header className={classes.header}>
-                <Typography variant='h3'>{name}</Typography>
+                <Typography variant="h3" color="primary">
+                  {name}
+                </Typography>
                 <Button
-                  color='primary'
+                  color="primary"
                   className={classes.btn}
                   onClick={handleCloseModal}
                 >
@@ -117,7 +122,7 @@ export default function HeroDetailsModal ({
 
               <PowerStatsList
                 data={{
-                  list: powerstats
+                  list: powerstats,
                 }}
               />
             </div>
@@ -125,53 +130,53 @@ export default function HeroDetailsModal ({
         )}
       </div>
     </Modal>
-  )
+  );
 }
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'center',
+    alignItems: "center",
+    display: "flex",
+    justifyContent: "center",
     minHeight: 300,
     minWidth: 300,
 
-    [theme.breakpoints.up('md')]: {
-      minWidth: 500
-    }
+    [theme.breakpoints.up("md")]: {
+      minWidth: 500,
+    },
   },
   body: {
-    display: 'flex',
-    flexDirection: 'column',
-    [theme.breakpoints.up('md')]: {
-      flexDirection: 'row'
-    }
+    display: "flex",
+    flexDirection: "column",
+    [theme.breakpoints.up("md")]: {
+      flexDirection: "row",
+    },
   },
   media: {
     backgroundImage: ({ url }) => `url(${url})`,
-    backgroundPosition: 'center top',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+    backgroundPosition: "center top",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
     height: 200,
-    width: 'auto',
-    [theme.breakpoints.up('md')]: {
-      height: 'auto',
-      width: 300
-    }
+    width: "auto",
+    [theme.breakpoints.up("md")]: {
+      height: "auto",
+      width: 300,
+    },
   },
   content: {
     padding: [[20, 16]],
-    minWidth: 300
+    minWidth: 300,
   },
   table: {
-    marginBottom: 16
+    marginBottom: 16,
   },
   closeIcon: {
     height: 30,
-    width: 30
+    width: 30,
   },
   header: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  }
-}))
+    display: "flex",
+    justifyContent: "space-between",
+  },
+}));
