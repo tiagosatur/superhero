@@ -1,14 +1,23 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 
-import { searchHeroes, getHero } from '../../store/actions'
+import {
+  searchHeroes,
+  getHero,
+  setFilters,
+  resetFilters,
+  filterResults,
+} from "../../store/actions";
 
-export default function useAction () {
-  const dispatch = useDispatch()
+export default function useAction() {
+  const dispatch = useDispatch();
 
   return {
     actions: {
       searchHeroes: (data) => dispatch(searchHeroes(data)),
-      getHero: (data) => dispatch(getHero(data))
-    }
-  }
+      getHero: (data) => dispatch(getHero(data)),
+      setFilters: (data) => dispatch(setFilters(data)),
+      resetFilters: () => dispatch(resetFilters()),
+      filterResults: (data) => dispatch(filterResults(data)),
+    },
+  };
 }
