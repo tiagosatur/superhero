@@ -1,9 +1,9 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Tooltip } from "@material-ui/core";
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { Typography, Tooltip } from '@material-ui/core'
 
-export default function PowerStatsItem({ data: { name, strength } }) {
-  const classes = useStyles({ strength });
+export default function PowerStatsItem ({ data: { name, strength } }) {
+  const classes = useStyles({ strength })
 
   return (
     <div className={classes.container}>
@@ -14,26 +14,26 @@ export default function PowerStatsItem({ data: { name, strength } }) {
         </div>
       </Tooltip>
     </div>
-  );
+  )
 }
 
 const useStyles = makeStyles(({ palette }) => ({
   container: {
-    display: "flex",
+    display: 'flex'
   },
   name: {
-    textTransform: "capitalize",
-    width: "50%",
+    textTransform: 'capitalize',
+    width: '50%'
   },
   bar: {
     backgroundColor: palette.primary.main,
     height: 5,
-    width: ({ strength }) => `${strength}%`,
+    width: ({ strength }) => `${strength}%`
   },
   barContainer: {
-    backgroundColor: palette.common.black["01"],
-    display: "flex",
-    alignItems: "center",
-    width: "50%",
-  },
-}));
+    backgroundColor: palette.common.black['01'],
+    display: 'flex',
+    alignItems: 'center',
+    width: '50%'
+  }
+}))

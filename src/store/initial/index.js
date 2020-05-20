@@ -1,24 +1,24 @@
 export default {
   auth: {
-    token: "3018572491512249",
+    token: '3018572491512249'
   },
   search: {
     isSearchLoading: false,
     results: [],
-    error: "",
-    total: 0,
+    error: '',
+    total: 0
   },
   hero: {
     isHeroLoading: false,
     info: {},
-    error: "",
+    error: ''
   },
   filter: {
     filterBy: [],
     filteredList: [],
     isFiltering: false,
-    error: "",
+    error: '',
     power: [0, 100],
-    speed: [0, 100],
-  },
-};
+    speed: [0, 100]
+  }
+}

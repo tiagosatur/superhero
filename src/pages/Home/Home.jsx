@@ -1,73 +1,72 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/styles";
-import { Button, Grid, Typography } from "@material-ui/core";
-import { isEmpty } from "lodash";
+import React, { useState, useEffect } from 'react'
+import { makeStyles } from '@material-ui/styles'
+import { Grid, Typography } from '@material-ui/core'
+import { isEmpty } from 'lodash'
 
-import { useAction, useStore, uniqueId } from "../../utils";
+import { useAction, useStore, uniqueId } from '../../utils'
 
 import {
   BarLoader,
-  FiltersModal,
   HeroCard,
   HeroDetailsModal,
   SearchField,
-  Filters,
-} from "../../components";
+  Filters
+} from '../../components'
 
-export default function Home() {
-  const [term, setTerm] = useState("");
-  const [shakeField, setShakeField] = useState(false);
-  const [isHeroDetailsModalOpen, setHeroDetailsModalOpen] = useState(false);
+export default function Home () {
+  const [term, setTerm] = useState('')
+  const [shakeField, setShakeField] = useState(false)
+  const [isHeroDetailsModalOpen, setHeroDetailsModalOpen] = useState(false)
 
-  const classes = useStyles();
-  const { actions } = useAction();
+  const classes = useStyles()
+  const { actions } = useAction()
   const {
     state: {
       search: { total, term: searchedTerm, results, isSearchLoading },
-      filter: { power, speed, filteredList, isFiltering },
-    },
-  } = useStore();
+      filter: { filteredList }
+    }
+  } = useStore()
 
   useEffect(() => {
-    !isEmpty(results) && actions.filterResults();
-  }, [results]);
+    !isEmpty(results) && actions.filterResults()
+  }, [results])
 
-  function handleChangeTerm(e) {
-    setTerm(e.target.value);
+  function handleChangeTerm (e) {
+    setTerm(e.target.value)
   }
 
-  async function handleSubmitSearch(e) {
-    e.preventDefault();
+  async function handleSubmitSearch (e) {
+    e.preventDefault()
     if (term.length >= 2) {
-      actions.searchHeroes(term);
-      setTerm("");
+      actions.searchHeroes(term)
+      setTerm('')
     } else {
-      setShakeField(true);
+      setShakeField(true)
       setTimeout(() => {
-        setShakeField(false);
-      }, 1000);
+        setShakeField(false)
+      }, 1000)
     }
   }
 
-  function handleHeroDetailsCloseModal() {
-    setHeroDetailsModalOpen(false);
+  function handleHeroDetailsCloseModal () {
+    setHeroDetailsModalOpen(false)
   }
 
-  function handleHeroDetailsOpenModal(heroId) {
-    setHeroDetailsModalOpen(true);
-    actions.getHero(heroId);
+  function handleHeroDetailsOpenModal (heroId) {
+    setHeroDetailsModalOpen(true)
+    actions.getHero(heroId)
   }
 
-  async function handleApplyFilters() {
-    actions.filterResults();
+  async function handleApplyFilters () {
+    actions.filterResults()
   }
 
-  function handleresetFilters() {
-    actions.resetFilters();
+  function handleresetFilters () {
+    actions.resetFilters()
   }
 
   return (
-    <Grid container data-testid="homepage">
+    <Grid container data-testid='homepage'>
       <Grid item xs={12} className={classes.searchContainer}>
         <SearchField
           data={{ value: term, shakeField }}
@@ -86,7 +85,7 @@ export default function Home() {
                     We found {total} results for
                   </Typography>
 
-                  <Typography className={classes.term} color="primary">
+                  <Typography className={classes.term} color='primary'>
                     "{searchedTerm}"
                   </Typography>
                 </div>
@@ -98,7 +97,7 @@ export default function Home() {
                   <Filters
                     actions={{
                       handleApplyFilters,
-                      handleresetFilters,
+                      handleresetFilters
                     }}
                   />
                 )}
@@ -114,7 +113,7 @@ export default function Home() {
                         name: item.name,
                         image: item.image.url,
                         powerstats: item.powerstats,
-                        handleOpenModal: handleHeroDetailsOpenModal,
+                        handleOpenModal: handleHeroDetailsOpenModal
                       }}
                       key={uniqueId()}
                     />
@@ -125,10 +124,10 @@ export default function Home() {
             <Grid item xs={12}>
               <HeroDetailsModal
                 data={{
-                  isModalOpen: isHeroDetailsModalOpen,
+                  isModalOpen: isHeroDetailsModalOpen
                 }}
                 actions={{
-                  handleCloseModal: handleHeroDetailsCloseModal,
+                  handleCloseModal: handleHeroDetailsCloseModal
                 }}
               />
             </Grid>
@@ -136,36 +135,51 @@ export default function Home() {
         )}
       </Grid>
     </Grid>
-  );
+  )
 }
 
 const useStyles = makeStyles((theme) => ({
-  "@global": {
-    fontFamily: "Roboto",
-    "::selection": {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.primary[100],
+  '@global': {
+    body: {
+      margin: 0
     },
+    fontFamily: [
+      'Roboto',
+      '-apple - system',
+      'BlinkMacSystemFont',
+      'Segoe UI',
+      'Oxygen',
+      'Ubuntu',
+      'Cantarell',
+      'Fira Sans',
+      'Droid Sans',
+      'Helvetica Neue',
+      'sans - serif'
+    ],
+    '::selection': {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary[100]
+    }
   },
   searchContainer: {
-    marginBottom: 50,
+    marginBottom: 50
   },
   heroList: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   foundResults: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginBottom: 8,
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 8
   },
   term: {
-    fontWeight: 700,
+    fontWeight: 700
   },
   resultsFor: {
-    marginRight: 4,
+    marginRight: 4
   },
   barLoader: {
-    marginTop: 100,
-  },
-}));
+    marginTop: 100
+  }
+}))
